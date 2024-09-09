@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amigo Secreto</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="box" id="box">
+
+            <div class="spinBtn"> Rodar </div>
+
+            <div class="wheel" id="wheel"> </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Array de cores
+            const colors = [
+                "#d11e48", "#f4dd51", "#a1c5ab", "#fde6bd", "#632f53",
+                "#a6f6af", "#6b5d4d", "#aee637", "#149c68", "#b0a18f",
+                "#f85a69", "#0f928c", "#b42011", "#82508f", "#fc580c", 
+                "#9d8416", "#c9665d", "#a0d490", "#8d94db", "#59343e"
+            ];
+
+            const wheel = document.getElementById('wheel');
+            const audio = new Audio('./musica_resize.mp3');
+
+            for (let i = 1; i <= 20; i++) {
+                const div = document.createElement('div');
+                div.classList.add('number');
+                div.style.setProperty('--i', i);
+                div.style.setProperty('--clr', colors[i - 1]);
+                div.innerHTML = `<span>${i}</span>`;
+                wheel.appendChild(div);
+            }
+
+            let spinBtn = document.querySelector('.spinBtn');
+
+            spinBtn.onclick = function () {
+                let value = Math.ceil(Math.random() * 3600);
+                wheel.style.transform = "rotate(" + value + "deg)";
+                audio.play();
+            }
+
+            // Adicione este trecho se você quiser parar a música quando a janela for fechada
+            window.addEventListener('beforeunload', function () {
+                audio.pause();
+            });
+        });
+    </script>
+
+</body>
+
+</html>
